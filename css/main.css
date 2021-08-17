@@ -1,0 +1,105 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 500px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 5px;
+    margin-bottom: 7px;
+    border-radius: 5px;
+}
+
+.list-item:first-child {
+    margin-top: 10px;
+}
+
+.list-item:hover {
+    background-color: #f2f2f2;
+}
+
+.complited {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.dispay-none {
+    display: none;
+}
+
+.my-app {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todoContainer {
+    border: 1px solid rgb(121, 113, 113);
+    border-radius: 5px;
+    padding: 25px;
+    -moz-box-shadow: 14px -10px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 14px -10px 8px 0px rgba(34, 60, 80, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.todoHeader {
+    text-align: center;
+}
+
+.input {
+    width: 300px;
+    border-radius: 5px;
+    height: 30px;
+    border: 1px solid green;
+    margin-right: 10px;
+}
+
+.btn {
+    height: 34px;
+    padding: 0 15px 0 15px;
+    background-color: #8d8;
+    font-weight: 900;
+    border: 1px solid #007e00;
+    border-radius: 2px;
+}
+
+.list {
+    width: 370px;
+    margin: 0;
+}
+
+.deleteBtn {
+    background-color: transparent;
+    border: transparent;
+    color: red;
+}
+
+.footer {
+    padding-top: 5px;
+    display: flex;
+    border-top: 1px solid#ccc;
+}
+
+.stateAll {
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+}
+
+.clearBtn {
+    background: #ff8d8d;
+    padding: 5px 10px;
+    border: 1px solid #7e0000;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.
