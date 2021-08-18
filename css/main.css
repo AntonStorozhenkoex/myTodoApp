@@ -113,7 +113,7 @@ ul {
     display: flex;
 }
 .stateRadio{
-    width: 50px;
+    width: 70px;
     background-color: initial;
     cursor: default;
     appearance: auto;
@@ -122,9 +122,13 @@ ul {
     padding: initial;
     border: initial;
     position: relative;
-    right: 20px;
+    right: 30px;
     z-index: 2;
     opacity: 0;
+    padding: 3px;
+}
+.stateRadioAll{
+    right: 0;
 }
 .stateAllText{
     position: relative;

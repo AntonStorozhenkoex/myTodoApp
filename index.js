@@ -16,9 +16,9 @@
         const stateDoneTrueContainer = document.createElement('div')
         const stateDoneFalseContainer = document.createElement('div')
         const stateAllContainer = document.createElement('div')
-        const stateAllText = document.createElement('span')
-        const stateTrueText =document.createElement('span')
-        const stateFalseText = document.createElement('span')
+        const stateAllText = document.createElement('label')
+        const stateTrueText =document.createElement('label')
+        const stateFalseText = document.createElement('label')
         stateAll.type = 'radio'
         stateAll.name = 'radio_btn'
         stateDoneFalse.type = 'radio'
@@ -32,6 +32,16 @@
 
 
 
+
+        stateAll.id = 'stateAll'
+        stateDoneTrue.id = 'stateTrue'
+        stateDoneFalse.id = 'stateFalse'
+        console.log(stateAllText)
+        stateAllText.setAttribute('for','stateAll')
+        stateTrueText.setAttribute('for','stateTrue')
+        stateFalseText.setAttribute('for','stateFalse')
+
+
         stateAllText.innerText = 'All'
         stateTrueText.innerText = 'Completed'
         stateFalseText.innerText = 'Progress '
@@ -42,6 +52,7 @@
         clearBtn.classList.add('clearBtn')
         stateTrueText.classList.add('stateAllText')
         stateTrueText.classList.add('stateAllText')
+        stateAll.classList.add('stateRadioAll')
         stateFalseText.classList.add('stateAllText')
         workSpace.classList.add('myApp')
         stateAllText.classList.add('stateAllText')
@@ -70,7 +81,6 @@
         stateDoneFalseContainer.append(stateDoneFalse)
         stateDoneTrueContainer.append(stateDoneTrue)
         stateAllContainer.append(stateAll)
-       
         todoForm.append(formInput)
         todoForm.append(formBtn)
 
@@ -136,8 +146,8 @@
 
 
         todoForm.todoForm.addEventListener('submit', (e) => {
+            e.preventDefault()
             if (todoForm.formInput.value) {
-                e.preventDefault()
                 let newTodo = createNewTodo(todoForm.formInput.value)
                 addNewValuetoArray(todoForm.formInput.value)
                 localStorageEdit()
@@ -154,8 +164,6 @@
 
 
                 })
-
-
                 newTodo.todoItem.addEventListener('click', () => {
                     newTodo.todoItemText.classList.toggle('completed')
                     for (let i in todosArray) {
@@ -166,6 +174,8 @@
                     }
                 })
                 todoForm.formInput.value = ''
+            }else{
+                alert('Введите значение в строку')
             }
         })
         todoForm.stateAll.addEventListener('change', () => {
@@ -178,7 +188,6 @@
             todoForm.stateTrueText.classList.remove('stateChange')
 
         })
-
         todoForm.stateDoneTrue.addEventListener('change', () => {
             let allTodos = Array.from(document.querySelectorAll('.listItem'))
             for (let k in allTodos) {
@@ -192,7 +201,6 @@
                 todoForm.stateFalseText.classList.remove('stateChange')
                 todoForm.stateTrueText.classList.add('stateChange')
             }
-
         })
         todoForm.stateDoneFalse.addEventListener('change', () => {
             let allTodos = Array.from(document.querySelectorAll('.listItem'))
@@ -210,8 +218,6 @@
         })
         todoForm.todoForm.append(todoList)
     }
-
-
     function createNewTodo(name) {
         let todoItem = document.createElement('li')
         let todoItemText = document.createElement('span')
@@ -225,23 +231,18 @@
         todoItem.append(todoItemText)
         todoItem.append(buttonDelete)
 
-
-
-
         return {
             todoItem,
             buttonDelete,
             todoItemText
         }
     }
-
     function addNewValuetoArray(name) {
         let obj = new Object()
         obj.name = name
         obj.isDone = false
         todosArray.push(obj)
     }
-
     function localStorageEdit(array = todosArray) {
         localStorage.setItem('array', JSON.stringify(array))
 
