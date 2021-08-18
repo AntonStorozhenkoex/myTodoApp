@@ -4,7 +4,7 @@ ul {
     width: 500px;
 }
 
-.list-item {
+.listItem {
     display: flex;
     justify-content: space-between;
     padding: 7px 5px;
@@ -12,25 +12,25 @@ ul {
     border-radius: 5px;
 }
 
-.list-item:first-child {
+.listItem:first-child {
     margin-top: 10px;
 }
 
-.list-item:hover {
+.listItem:hover {
     background-color: #f2f2f2;
 }
 
-.complited {
+.completed {
     text-decoration: line-through;
     color: grey;
 }
 
-.dispay-none {
+.dispayNone {
     display: none;
 }
 
-.my-app {
-    height: 100vh;
+.myApp {
+    height: 95vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,9 +76,14 @@ ul {
     background-color: transparent;
     border: transparent;
     color: red;
+    font-size: 16px;
+}
+.deleteBtn:hover{
+    background-color: gainsboro;
 }
 
 .footer {
+    margin-top: 20px;
     padding-top: 5px;
     display: flex;
     border-top: 1px solid#ccc;
@@ -89,9 +94,12 @@ ul {
     cursor: default;
     appearance: auto;
     box-sizing: border-box;
-    margin: 3px 3px 3px 4px;
+    margin: 3px 3px 0 4px;
     padding: initial;
     border: initial;
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
 }
 
 .clearBtn {
@@ -101,5 +109,35 @@ ul {
     border-radius: 4px;
     margin-right: 5px;
 }
+.stateContainer{
+    display: flex;
+}
+.stateRadio{
+    width: 50px;
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 0;
+    padding: initial;
+    border: initial;
+    position: relative;
+    right: 20px;
+    z-index: 2;
+    opacity: 0;
+}
+.stateAllText{
+    position: relative;
+    left: 40px;
+    z-index: -1;
+    cursor: default;
+    border:1px solid transparent;
+}
+.stateChange{
+  border-top: 1px solid blue;
 
-.
+}
+.stateContainer{
+    margin-right: 10px;
+    cursor: default;
+}

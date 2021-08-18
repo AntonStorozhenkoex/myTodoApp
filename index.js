@@ -2,7 +2,7 @@
     let todosArray = []
 
     function createMyTodo() {
-        const workSpace = document.getElementById('my-app')
+        const workSpace = document.getElementById('myApp')
         const todoListContainer = document.createElement('div')
         const header = document.createElement('h2')
         const todoForm = document.createElement('form')
@@ -11,51 +11,66 @@
         const footer = document.createElement('div')
         const clearBtn = document.createElement('button')
         const stateDoneTrue = document.createElement('input')
-        const stateDoneFasle = document.createElement('input')
+        const stateDoneFalse = document.createElement('input')
         const stateAll = document.createElement('input')
         const stateDoneTrueContainer = document.createElement('div')
-        const stateDoneFasleContainer = document.createElement('div')
+        const stateDoneFalseContainer = document.createElement('div')
         const stateAllContainer = document.createElement('div')
+        const stateAllText = document.createElement('span')
+        const stateTrueText =document.createElement('span')
+        const stateFalseText = document.createElement('span')
         stateAll.type = 'radio'
         stateAll.name = 'radio_btn'
-        stateDoneFasle.type = 'radio'
-        stateDoneFasle.name = 'radio_btn'
+        stateDoneFalse.type = 'radio'
+        stateDoneFalse.name = 'radio_btn'
         stateDoneTrue.type = 'radio'
         stateDoneTrue.name = 'radio_btn'
-        header.innerText = "ToDos"
-        formBtn.innerText = "Add"
+        header.innerText = 'ToDos'
+        formBtn.innerText = 'Add'
         clearBtn.innerText = 'Clear'
         stateAll.checked = true
 
 
 
-        stateAllContainer.innerText = 'Все дела'
-        stateDoneTrueContainer.innerText = 'Выполненные дела'
-        stateDoneFasleContainer.innerText = 'В процессе'
+        stateAllText.innerText = 'All'
+        stateTrueText.innerText = 'Completed'
+        stateFalseText.innerText = 'Progress '
 
-        stateAll.classList.add('stateAll')
+        stateAll.classList.add('stateRadio')
+        stateDoneTrue.classList.add('stateRadio')
+        stateDoneFalse.classList.add('stateRadio')
         clearBtn.classList.add('clearBtn')
-
-        workSpace.classList.add('my-app')
+        stateTrueText.classList.add('stateAllText')
+        stateTrueText.classList.add('stateAllText')
+        stateFalseText.classList.add('stateAllText')
+        workSpace.classList.add('myApp')
+        stateAllText.classList.add('stateAllText')
         todoListContainer.classList.add('todoContainer')
         header.classList.add('todoHeader')
         todoForm.classList.add('form')
         formInput.classList.add('input')
+        stateAllText.classList.add('stateChange')
         formBtn.classList.add('btn')
         footer.classList.add('footer')
-
+        stateAllContainer.classList.add('stateContainer')
+        stateDoneTrueContainer.classList.add('stateContainer')
+        stateDoneFalseContainer.classList.add('stateContainer')
         stateAll.classList.add('input-radio')
         workSpace.append(todoListContainer)
         todoListContainer.append(header)
         todoListContainer.append(todoForm)
         todoListContainer.append(footer)
         footer.append(clearBtn)
+        stateAllContainer.append(stateAllText)
+        stateDoneTrueContainer.append(stateTrueText)
+        stateDoneFalseContainer.append(stateFalseText)
         footer.append(stateAllContainer)
         footer.append(stateDoneTrueContainer)
-        footer.append(stateDoneFasleContainer)
-        stateDoneFasleContainer.append(stateDoneFasle)
+        footer.append(stateDoneFalseContainer)
+        stateDoneFalseContainer.append(stateDoneFalse)
         stateDoneTrueContainer.append(stateDoneTrue)
         stateAllContainer.append(stateAll)
+       
         todoForm.append(formInput)
         todoForm.append(formBtn)
 
@@ -66,7 +81,13 @@
             clearBtn,
             stateAll,
             stateDoneTrue,
-            stateDoneFasle
+            stateDoneFalse,
+            stateDoneTrueContainer,
+            stateDoneFalseContainer,
+            stateAllContainer,
+            stateAllText,
+            stateTrueText,
+            stateFalseText
         }
     }
 
@@ -87,26 +108,29 @@
                 todoList.append(oldTodo.todoItem)
 
                 if (todosArray[i].isDone) {
-                    oldTodo.todoItemText.classList.toggle('complited')
+                    oldTodo.todoItemText.classList.toggle('completed')
                 }
-
-                oldTodo.buttonDelete.addEventListener('click', () => {
-                    oldTodo.todoItem.remove()
-                    todosArray.splice(i, 1)
+                oldTodo.todoItem.addEventListener('click', () => {
+                    oldTodo.todoItemText.classList.toggle('completed')
+                    todosArray[i].isDone = !(todosArray[i].isDone)
                     localStorageEdit()
                 })
 
-                oldTodo.todoItem.addEventListener('click', () => {
-                    oldTodo.todoItemText.classList.toggle('complited')
-                    todosArray[i].isDone = !(todosArray[i].isDone)
+                oldTodo.buttonDelete.addEventListener('click', () => {
+                    console.log(todosArray)
+                    oldTodo.todoItem.remove()
+                    todosArray.splice(i, 1)
                     localStorageEdit()
                 })
             }
         }
 
         todoForm.clearBtn.addEventListener('click', () => {
-            while (todoList.lastChild)
+            while (todoList.lastChild){
                 todoList.removeChild(todoList.firstChild)
+            }
+            todosArray = []
+            localStorageEdit()
         })
 
 
@@ -133,7 +157,7 @@
 
 
                 newTodo.todoItem.addEventListener('click', () => {
-                    newTodo.todoItemText.classList.toggle('complited')
+                    newTodo.todoItemText.classList.toggle('completed')
                     for (let i in todosArray) {
                         if (todosArray[i].name === newTodo.todoItemText.innerText) {
                             todosArray[i].isDone = !(todosArray[i].isDone)
@@ -141,38 +165,47 @@
                         }
                     }
                 })
-                todoForm.formInput.value = ""
+                todoForm.formInput.value = ''
             }
         })
         todoForm.stateAll.addEventListener('change', () => {
-            let allTodos = Array.from(document.querySelectorAll('.list-item'))
+            let allTodos = Array.from(document.querySelectorAll('.listItem'))
             for (let k in allTodos) {
-                allTodos[k].classList.remove('dispay-none')
+                allTodos[k].classList.remove('dispayNone')
             }
+            todoForm.stateAllText.classList.add('stateChange')
+            todoForm.stateFalseText.classList.remove('stateChange')
+            todoForm.stateTrueText.classList.remove('stateChange')
 
         })
 
         todoForm.stateDoneTrue.addEventListener('change', () => {
-            let allTodos = Array.from(document.querySelectorAll('.list-item'))
+            let allTodos = Array.from(document.querySelectorAll('.listItem'))
             for (let k in allTodos) {
-                if (!allTodos[k].firstChild.classList.contains('complited')) {
-                    allTodos[k].classList.add('dispay-none')
+                if (!allTodos[k].firstChild.classList.contains('completed')) {
+                    allTodos[k].classList.add('dispayNone')
                 }
-                if (allTodos[k].firstChild.classList.contains('complited')) {
-                    allTodos[k].classList.remove('dispay-none')
+                if (allTodos[k].firstChild.classList.contains('completed')) {
+                    allTodos[k].classList.remove('dispayNone')
                 }
+                todoForm.stateAllText.classList.remove('stateChange')
+                todoForm.stateFalseText.classList.remove('stateChange')
+                todoForm.stateTrueText.classList.add('stateChange')
             }
 
         })
-        todoForm.stateDoneFasle.addEventListener('change', () => {
-            let allTodos = Array.from(document.querySelectorAll('.list-item'))
+        todoForm.stateDoneFalse.addEventListener('change', () => {
+            let allTodos = Array.from(document.querySelectorAll('.listItem'))
             for (let k in allTodos) {
-                if (allTodos[k].firstChild.classList.contains('complited')) {
-                    allTodos[k].classList.add('dispay-none')
+                if (allTodos[k].firstChild.classList.contains('completed')) {
+                    allTodos[k].classList.add('dispayNone')
                 }
-                if (!allTodos[k].firstChild.classList.contains('complited')) {
-                    allTodos[k].classList.remove('dispay-none')
+                if (!allTodos[k].firstChild.classList.contains('completed')) {
+                    allTodos[k].classList.remove('dispayNone')
                 }
+                todoForm.stateAllText.classList.remove('stateChange')
+                todoForm.stateFalseText.classList.add('stateChange')
+                todoForm.stateTrueText.classList.remove('stateChange')
             }
         })
         todoForm.todoForm.append(todoList)
@@ -187,7 +220,7 @@
         todoItemText.innerHTML = name
         buttonDelete.innerText = 'x'
 
-        todoItem.classList.add('list-item')
+        todoItem.classList.add('listItem')
         buttonDelete.classList.add('deleteBtn')
         todoItem.append(todoItemText)
         todoItem.append(buttonDelete)
